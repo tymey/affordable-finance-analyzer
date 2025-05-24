@@ -1,15 +1,45 @@
 def get_project_inputs():
     return {
+        # Project Cost Structure
         "total_development_cost": 12000000,
         "eligible_basis": 10000000,
         "applicable_fraction": 1.0,
-        "credit_rate": 0.09,
-        "soft_subsidy": 2000000,
+
+        # LIHTC Details
+        "credit_rate": 0.09,  # 9% credit
+        "pricing": 0.90,  # $0.90 per credit
+        "credit_type": "9%",  # can also be "4%" in future expansions
+        "include_syndication_fee": True,
+        "syndication_fee_percent": 0.05,  # 5% syndication fee
+
+        # Bridge Loan Settings
+        "use_bridge_loan": True,
+        "bridge_loan_interest": 0.06,
+        "bridge_loan_term_years": 2,
+
+        # Loan Underwriting
         "permanent_loan_rate": 0.05,
         "permanent_loan_term": 30,
         "dscr_required": 1.15,
+
+        # NOI & Financial Projections
         "noi_year_1": 600000,
+        "noi_growth_rate": 0.02,  # 2% NOI growth
+        "hold_period": 10,  # 10-year hold
+        "exit_cap_rate": 0.05,  # 5% cap rate for terminal value
+        "selling_cost_percent": 0.02,  # 2% sale costs
+        "construction_period_years": 2,  # for interest reserve
+
+        # Soft Subsidies
+        "soft_subsidies": {
+            "HOME": 1000000,
+            "CDBG": 750000
+        },
+
+        # Developer Fee Settings
+        "max_deferred_dev_fee": 500000  # Cap on how much fee can be deferred
     }
+
 
 """
 total_development_costs (Total cost to complete the project):
