@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Results
+        </title>
+    </head>
+    <body>
+        <h2>Capital Stack</h2>
+        <ul>
+            {% for key, value in capital_stack.items() %}
+            <li>{{ key }}: ${{ "{:,.2f}".format(value) if value|float else value }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>IRR: {{ irr }}%</h2>
+        <h2>DSCR: {{ dscr }}</h2>
+
+        <h3>LIHTC Disbursement</h3>
+        <ul>
+            {% for key, value in lihtc_info['Disbursement Schedule'].items() %}
+            <li>{{ key }}: ${{ "{:,.2f}".format(value) }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Annual Cash Flows</h3>
+        <ol>
+            {% for cf in cash_flows %}
+            <li>${{ "{:,.2f}".format(cf) }}</li>
+            {% endfor %}
+        </ol>
+
+        <a href="/">← Back</a>
+    </body>
+</html>
