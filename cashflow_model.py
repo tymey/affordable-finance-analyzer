@@ -63,4 +63,4 @@ cash_flows = project_cash_flows_enhanced(
     include_sale=True
 )
 
-pprint(cash_flows)
+# pprint(cash_flows)

@@ -122,4 +122,4 @@ inputs_example = {
 # Assume LIHTC equity calculated earlier
 lihtc_equity_example = 8000000
 
-pprint(build_advanced_capital_stack(inputs_example, lihtc_equity_example))
+# pprint(build_advanced_capital_stack(inputs_example, lihtc_equity_example))

@@ -121,15 +121,15 @@ def calculate_lihtc_equity_extended(
     }
 
 # Run an example with extended modeling
-pprint(calculate_lihtc_equity_extended(
-    eligible_basis=10_000_000,
-    applicable_fraction=1.0,
-    credit_rate=0.09,
-    pricing=0.90,
-    credit_type="9%",
-    include_syndication_fee=True,
-    syndication_fee_percent=0.05,
-    use_bridge_loan=True,
-    bridge_loan_interest=0.06,
-    bridge_loan_term_years=2
-))
+# pprint(calculate_lihtc_equity_extended(
+#     eligible_basis=10_000_000,
+#     applicable_fraction=1.0,
+#     credit_rate=0.09,
+#     pricing=0.90,
+#     credit_type="9%",
+#     include_syndication_fee=True,
+#     syndication_fee_percent=0.05,
+#     use_bridge_loan=True,
+#     bridge_loan_interest=0.06,
+#     bridge_loan_term_years=2
+# ))
