@@ -1,3 +1,5 @@
+from pprint import pprint # Pretty printing for objects
+
 """
 This function is used to estimate how much equity a developer can raise using
 Low-Income Housing Tax Credits (LIHTC) - specifically the 9% credit.
@@ -56,3 +58,70 @@ Real-World Considerations:
         - 25% at stabilization
     - We can expand this to model 4% LIHTC with bonds, syndication fees, or bridge loan financing based on the equity raise.
 """
+
+def calculate_lihtc_equity_extended(
+    eligible_basis: float,
+    applicable_fraction: float,
+    credit_rate: float,
+    term: int = 10,
+    pricing: float = 0.90,
+    credit_type: str = "9%",
+    include_syndication_fee: bool = True,
+    syndication_fee_percent: float = 0.05,
+    use_bridge_loan: bool = True,
+    bridge_loan_interest: float = 0.06,
+    bridge_loan_term_years: int = 2
+):
+    qualified_basis = eligible_basis * applicable_fraction
+    annual_credit = qualified_basis * credit_rate
+    total_credit = annual_credit * term
+    gross_equity = total_credit * pricing
+
+    # Syndication fee
+    syndication_fee = gross_equity * syndication_fee_percent if include_syndication_fee else 0
+    net_equity = gross_equity - syndication_fee
+
+    # Disbursement schedule (assumes: 25% at closing, 50% during construction, 25% at stabilization)
+    disbursement_schedule = {
+        "Closing": round(net_equity * 0.25, 2),
+        "Construction Completion": round(net_equity * 0.50, 2),
+        "Stabilization": round(net_equity * 0.25, 2),
+    }
+
+    # Bridge loan if equity not paid upfront
+    bridge_loan = {}
+    if use_bridge_loan:
+        average_equity_gap = net_equity * (0.75 / 2)  # 75% paid after closing, so average over 2 years
+        interest_due = average_equity_gap * bridge_loan_interest * bridge_loan_term_years
+        bridge_loan = {
+            "Bridge Loan Principal Needed": round(average_equity_gap, 2),
+            "Interest Over Term": round(interest_due, 2),
+            "Total Repayment": round(average_equity_gap + interest_due, 2)
+        }
+
+    return {
+        "Credit Type": credit_type,
+        "Qualified Basis": qualified_basis,
+        "Annual Credit": round(annual_credit, 2),
+        "Total Credits (10 years)": round(total_credit, 2),
+        "Investor Pricing": pricing,
+        "Gross Equity Raised": round(gross_equity, 2),
+        "Syndication Fee": round(syndication_fee, 2),
+        "Net Equity After Fees": round(net_equity, 2),
+        "Disbursement Schedule": disbursement_schedule,
+        "Bridge Loan (if used)": bridge_loan
+    }
+
+# Run an example with extended modeling
+pprint(calculate_lihtc_equity_extended(
+    eligible_basis=10_000_000,
+    applicable_fraction=1.0,
+    credit_rate=0.09,
+    pricing=0.90,
+    credit_type="9%",
+    include_syndication_fee=True,
+    syndication_fee_percent=0.05,
+    use_bridge_loan=True,
+    bridge_loan_interest=0.06,
+    bridge_loan_term_years=2
+))
