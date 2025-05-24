@@ -59,6 +59,14 @@ Real-World Considerations:
     - We can expand this to model 4% LIHTC with bonds, syndication fees, or bridge loan financing based on the equity raise.
 """
 
+"""
+Possible Extension:
+
+This model reflects the real-world cash flow challenges in LIHTC deals:
+    - Credits are paid out slowly, while construction needs capital upfront
+    - Syndicators charge fees that reduce usable equity
+    - Developers often need short-term bridge loans, increasing cost and risk.
+"""
 def calculate_lihtc_equity_extended(
     eligible_basis: float,
     applicable_fraction: float,
