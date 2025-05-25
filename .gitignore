@@ -1,2 +1,6 @@
 # Pycache
 __pycache__/
+
+# Output files
+output_report.pdf
+output_report.xlsx
