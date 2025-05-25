@@ -1,9 +1,15 @@
-from flask import Flask, render_template, request
+import os
+from flask import Flask, render_template, request, send_file
 from model.inputs import get_project_inputs
 from model.lihtc_calculator import calculate_lihtc_equity_extended
 from model.capital_stack import build_advanced_capital_stack
 from model.cashflow_model import project_cash_flows_enhanced
 from model.utils import calculate_irr, calculate_dscr
+from model.report_generator import generate_excel_report, generate_pdf_report
+
+# Temporary files
+EXCEL_PATH = "output_report.xlsx"
+PDF_PATH = "output_report.pdf"
 
 app = Flask(__name__)
 
@@ -41,6 +47,10 @@ def index():
         irr = calculate_irr(cash_flows, capital_stack["Equity Required"])
         dscr = calculate_dscr(inputs["noi_year_1"], capital_stack["Loan (DSCR & LTV Constrained)"] * inputs["permanent_loan_rate"])
 
+        # Generate reports
+        generate_excel_report(capital_stack, cash_flows, irr, dscr, EXCEL_PATH)
+        generate_pdf_report(capital_stack, cash_flows, irr, dscr, PDF_PATH)
+
         return render_template("results.html",
                                capital_stack=capital_stack,
                                cash_flows=cash_flows,
@@ -49,6 +59,14 @@ def index():
                                lihtc_info=lihtc_info)
 
     return render_template("index.html")
+
+@app.route("/download/excel")
+def download_excel():
+    return send_file(EXCEL_PATH, as_attachment=True)
+
+@app.route("/download/pdf")
+def download_pdf():
+    return send_file(PDF_PATH, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
