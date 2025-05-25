@@ -1,3 +1,15 @@
+"""
+Matpoltlib's default backend on macOS is often set to MacOSX,
+which tries to use GUI-based rendering (NSWindow) -- not
+allowed in a background web server process.
+
+To avoid a chart rendering issue, we'll set the backend manually
+to a non-interactive, file-based backend called "Agg" (commonly
+used for server-side plotting).
+"""
+import matplotlib
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 import numpy as np
 import os
