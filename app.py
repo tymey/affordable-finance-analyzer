@@ -48,8 +48,8 @@ def index():
         dscr = calculate_dscr(inputs["noi_year_1"], capital_stack["Loan (DSCR & LTV Constrained)"] * inputs["permanent_loan_rate"])
 
         # Generate reports
-        generate_excel_report(capital_stack, cash_flows, irr, dscr, EXCEL_PATH)
-        generate_pdf_report(capital_stack, cash_flows, irr, dscr, PDF_PATH)
+        generate_excel_report(capital_stack, lihtc_info, cash_flows, irr, dscr, EXCEL_PATH)
+        generate_pdf_report(capital_stack, lihtc_info, cash_flows, irr, dscr, PDF_PATH)
 
         return render_template("results.html",
                                capital_stack=capital_stack,
