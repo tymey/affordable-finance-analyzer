@@ -8,8 +8,8 @@ from model.utils import calculate_irr, calculate_dscr
 from model.report_generator import generate_excel_report, generate_pdf_report
 
 # Temporary files
-EXCEL_PATH = "output/report.xlsx"
-PDF_PATH = "output/report.pdf"
+EXCEL_PATH = "outputs/report.xlsx"
+PDF_PATH = "outputs/report.pdf"
 
 app = Flask(__name__)
 
