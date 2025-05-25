@@ -1,6 +1,11 @@
 # affordable-finance-analyzer
 
 ## Get Started
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
 ### `inputs.py`
 Summary Table
